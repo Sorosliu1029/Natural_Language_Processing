@@ -1,0 +1,82 @@
+\documentclass[a4paper, twocolumn]{article}
+\usepackage{CJKutf8}
+\usepackage[sc]{mathpazo} % Use the Palatino font
+\usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
+\linespread{1.2} % Line spacing - Palatino needs more space between lines
+\usepackage{microtype} % Slightly tweak font spacing for aesthetics
+
+\usepackage[english]{babel} % Language hyphenation and typographical rules
+
+\usepackage[hmarginratio=1:1,top=32mm,left=20mm,right=20mm,columnsep=20pt]{geometry} % Document margins
+\usepackage[hang, small,labelfont=bf,up,textfont=it,up]{caption} % Custom captions under/above floats in tables or figures
+%\usepackage{booktabs} % Horizontal rules in tables
+
+\usepackage{lettrine} % The lettrine is the first enlarged letter at the beginning of the text
+
+\usepackage{enumitem} % Customized lists
+\setlist[itemize]{noitemsep} % Make itemize lists more compact
+
+\usepackage{abstract} % Allows abstract customization
+\renewcommand{\abstractnamefont}{\normalfont\itshape\bfseries} % Set the "Abstract" text to bold
+\renewcommand{\abstracttextfont}{\normalfont} % Set the abstract itself to small italic text
+
+\usepackage{titlesec} % Allows customization of titles
+\renewcommand\thesection{\Roman{section}} % Roman numerals for the sections
+\renewcommand\thesubsection{\roman{subsection}} % roman numerals for subsections
+\titleformat{\section}[block]{\large\scshape\centering}{\thesection.}{1em}{} % Change the look of the section titles
+\titleformat{\subsection}[block]{\large}{\thesubsection.}{1em}{} % Change the look of the section titles
+
+\usepackage{fancyhdr} % Headers and footers
+\pagestyle{fancy} % All pages have headers and footers
+\fancyhead{} % Blank out the default header
+\fancyfoot{} % Blank out the default footer
+\fancyhead[C]{
+	\begin{CJK}{UTF8}{gbsn}
+	《中文信息处理》课程项目报告
+	\end{CJK}}
+\fancyfoot[RO,LE]{\thepage} % Custom footer text
+\usepackage{titling} % Customizing the title section
+
+\usepackage{hyperref} % For hyperlinks in the PDF
+\hypersetup{hidelinks}
+
+\usepackage{graphicx}
+\renewcommand{\normalsize}{\fontsize{10.5pt}{\baselineskip}\selectfont}
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\setlength{\droptitle}{-4\baselineskip} % Move the title up
+
+\pretitle{\begin{center}\Huge\bfseries} % Article title formatting
+	\posttitle{\end{center}} % Article title closing formatting
+\title{基于词包和词向量的电影评论情感分析} % Article title
+\author{%
+	\textsc{刘阳 13307130167} \\[1ex] % Your name
+	\normalsize 复旦大学 计算机学院 \\ % Your institution
+}
+\date{} % Leave empty to omit a date
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+\begin{CJK}{UTF8}{gbsn}
+	% Print the title
+	\maketitle
+	
+	%----------------------------------------------------------------------------------------
+%		ARTICLE CONTENTS
+	%----------------------------------------------------------------------------------------
+	\input{sections/abstract.tex}
+	\input{sections/keywords.tex}
+	\input{sections/introduction.tex}
+	
+	%----------------------------------------------------------------------------------------
+	%	REFERENCE LIST
+	%----------------------------------------------------------------------------------------
+	\renewcommand{\refname}{参考文献}
+	\input{references/references.tex}
+	
+	%----------------------------------------------------------------------------------------
+\end{CJK}	
+\end{document}
