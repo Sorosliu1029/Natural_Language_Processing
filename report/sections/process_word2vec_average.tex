@@ -1,7 +1,7 @@
 \subsubsection{向量平均}
 由之前的介绍可知，词向量模型中，每个词都是一个高维向量，那么最简单直接的构造特征的方式就是将一段文本中所有词的词向量相加取平均，得到这段文本的平均词向量，将这个平均词向量作为该段文本的特征集合。\\
 从直观角度理解，这种方式就是将一段文本的“重心”作为该段文本的特征。\\
-利用这种特征来训练分类器，得到如下图所示的ROC曲线。
+利用这种特征来训练分类器，得到如下图\ref{fig:3cword2vecaverage}所示的ROC曲线。
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.9\linewidth]{3c_word2vec_average}
