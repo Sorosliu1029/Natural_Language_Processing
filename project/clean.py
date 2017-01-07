@@ -16,3 +16,10 @@ def review2wordlist(review, no_stopwords=False):
     words = list(filter(lambda w: not w in stops, words))
   return words
 
+def review2sentences(review, tokenizer, no_stopwords=False):
+  raw_sentences = tokenizer.tokenize(review.strip())
+  sentences = []
+  for raw_sentence in raw_sentences:
+    if len(raw_sentence) > 0:
+      sentences.append(review2wordlist(raw_sentence, no_stopwords))
+  return sentences
