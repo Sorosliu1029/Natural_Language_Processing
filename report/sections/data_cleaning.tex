@@ -1,0 +1,15 @@
+\section{数据清洗}
+使用的语料数据来自Kaggle.com，其中有25,000的电影评论打了标签，另有75,000的评论没有打标签。\\
+首先查看原始语料，任取一条评论数据，字数为433， 其中的片段如下：
+``<br /><br />The actual feature film bit when it finally starts is only on for 20 minutes or so excluding the Smooth Criminal sequence and Joe Pesci is convincing as a psychopathic all powerful drug lord.'' \\
+可以看到原始文本有网页的标签和具体的数字。
+网页标签应该是在爬取电影评论网站时没有完全解析导致的遗留。
+而数字因为本身不能单独记为一个词，所以也需要处理掉。
+同时对于特征提取没有多大帮助，而又会增加分类任务空间和时间复杂度的停用词，我们也要去掉。\\
+对于网页标签，我们使用BeautifulSoup这个网页解析库来提取去除网页标签的文本。
+而对于数字，我们利用正则表达式，来匹配数字，替换成空格。
+对于标点符号，我们也是先替换成空格。
+在之后有对段落分句的需求时，再使用原始语料库进行分句。
+对于停用词，我们使用NLTK提供的停用词语料库，来查找和删除评论中的停用词。
+最后的清洗结果还需要对所有字母转成小写。
+对于上面考察的那条评论数据，在经过这一系列的处理后，字数为219。
