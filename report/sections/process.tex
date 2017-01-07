@@ -30,4 +30,46 @@ ROC空间将假阳性率FPR作为X轴，真阳性率TPR作为Y轴。
 K次交叉验证的好处在于可以同时重复使用随机产生的子样本进行训练和验证，每次的结果验证一次。
 
 \subsection{基于词包的特征提取}
+将词包作为文本的特征是一个经典，简单直观而有效的特征提取方式，课上也讲过这个方法。
+在词包模型中，文本被表示成组成它的词的包（多重集合）。
+这个集合保留了词的重复次数，但是忽略文本的语法和词之间的顺序。\\
+词包模型首先构建文本的词汇表，然后取最频繁的词汇作为词包的考察元素。
+对于每个文本，统计各个频繁词的出现次数，作为该段文本的特征。\\
+举例来讲，我们有两段文本：
+\begin{itemize}
+	\item
+	``John likes to watch movies. Mary likes movie too.''
+	\item
+	``John also likes to watch football games.''
+\end{itemize}
+由这两段文本构造的词包为：
+[ "John", "likes", "to", "watch", "movies", "also", "football", "games", "Mary", "too"]。
+有了词包之后，我们就可以来构造文本的特征了。
+最常用的方式是词汇频数。
+上述例子构造的文本特征为：
+\begin{itemize}
+	\item
+	``[1, 2, 1, 1, 2, 0, 0, 0, 1, 1]''
+	\item
+	``[1, 1, 1, 1, 0, 1, 1, 1, 0, 0]''
+\end{itemize}
+
 \input{sections/process_bow.tex}
+
+\paragraph{简单词包的问题}
+\begin{itemize}
+	\item
+	简单词包的方法忽略了词之间的位置关系，而只计算了词的频数。
+	这样的方式缺失了上下文信息，提取的是孤立的特征。
+	\item
+	简单词包的方法将词包中所有的词一视同仁，没有考虑到有些词比较重要，而另一些词不是那么重要。
+\end{itemize}
+\paragraph{改进方式}
+\begin{itemize}
+	\item
+	针对第一个问题，我们采用课上学到的”n-gram"的思想，将原始数据集先提取出bi-gram的特征，然后对这些特征作词包。
+	\item
+	针对第二个问题，我们计算文本词汇的“TF-IDF”值，作为词包集合中元素的加权值，然后将加权后的特征作为训练集测试集。
+\end{itemize}
+
+\input{sections/process_bow_bigram.tex}

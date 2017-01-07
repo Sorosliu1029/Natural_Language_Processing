@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 from itertools import cycle
 from sklearn.metrics import roc_curve, auc
 from sklearn.model_selection import StratifiedKFold
+from sklearn.model_selection import train_test_split
 
 def roc_plot(classifier, X, y, plot_title):
   """
@@ -30,7 +31,7 @@ def roc_plot(classifier, X, y, plot_title):
 
       i += 1
       print("%dth fold done" % i)
-      
+
   plt.plot([0, 1], [0, 1], linestyle='--', lw=lw, color='k',
           label='Luck')
 
@@ -48,3 +49,37 @@ def roc_plot(classifier, X, y, plot_title):
   plt.legend(loc="lower right")
   plt.show()
   return mean_fpr, mean_tpr
+
+
+def roc_plot_nocv(classifiers, X, y, plot_title):
+  """
+  Run classifierS and plot ROC curves
+  """
+  lw = 2
+
+  train_X, test_X, train_y, test_y = train_test_split(X, y, test_size=0.2)
+  colors = cycle(['cyan', 'indigo', 'seagreen', 'yellow', 'blue', 'darkorange'])
+  aucs = []
+  print("start training and validating...")
+  for classifier, color in zip(classifiers, colors):
+    classifier_name = str(type(classifier)).split('.')[-1][:-2]
+    probas_ = classifier.fit(train_X, train_y).predict_proba(test_X)
+    # Compute ROC curve and area the curve
+    fpr, tpr, thresholds = roc_curve(test_y, probas_[:, 1])
+    roc_auc = auc(fpr, tpr)
+    aucs.append({classifier_name: roc_auc})
+    plt.plot(fpr, tpr, lw=lw, color=color,
+            label='%s ROC (area = %0.2f)' % (classifier_name, roc_auc))
+    print("%s done" % classifier_name)
+
+  plt.plot([0, 1], [0, 1], linestyle='--', lw=lw, color='k',
+          label='Luck')
+
+  plt.xlim([-0.05, 1.05])
+  plt.ylim([-0.05, 1.05])
+  plt.xlabel('False Positive Rate')
+  plt.ylabel('True Positive Rate')
+  plt.title(plot_title)
+  plt.legend(loc="lower right")
+  plt.show()
+  return aucs
